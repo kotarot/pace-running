@@ -5,5 +5,5 @@ Usage:
     -d [--distance]:    Distance you will run in kilometer.
                         Shortened form: h(21.0975km), f(42.195km).
     -f [--finish-time]: Time you want to finish in format like 1h23m45s.
-    -u [--unit-time]:   Time you want to keep in format like 4m00s.
+    -p [--pace-time]:   Pace time you want to keep in format like 4m00s.
 
