@@ -45,6 +45,12 @@ int str_to_time(char *str);
 void time_to_str(int time, char *str);
 
 /**
+ * parse double to time string
+ * @param time(second), time string
+ */
+void dtime_to_str(double dtime, char *str);
+
+/**
  * count number of on-bit
  * @param integer
  * @return number of on-bit

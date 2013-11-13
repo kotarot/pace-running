@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
     int c, index;
     double dist = 0.0;
     int finish = -1, pace = -1;
+    double finishd = -1.0, paced = -1.0;
     int mode = MODE_NONE;
 
     while ((c = getopt_long(argc, argv, "hd:f:p:", options, &index)) != -1) {
@@ -57,22 +58,24 @@ int main(int argc, char *argv[]) {
     if (1 < countbits(mode))
         exit_with_error("Selected more than 1 mode.");
 
+    /* calc and prepare result */
+    char finish_str[128], pace_str[128];
     if (mode == MODE_FTOP) {
-        pace = finish / dist;
+        paced = (double)finish / dist;
+        dtime_to_str(paced, pace_str);
+        time_to_str(finish, finish_str);
     } else if (mode == MODE_PTOF) {
-        finish = pace * dist;
+        finishd = (double)pace * dist;
+        time_to_str(pace, pace_str);
+        dtime_to_str(finishd, finish_str);
     }
 
     /* disp results */
-    char finish_str[128], pace_str[128];
-    time_to_str(finish, finish_str);
-    time_to_str(pace, pace_str);
-
     cout << "Results:" << endl;
     cout << "  mode        " << mode_str[mode] << endl;
-    cout << "  dist        " << dist << " (km)" << endl;
+    cout << "  dist        " << dist << " km" << endl;
     cout << "  finish-time " << finish_str << endl;
-    cout << "  pace-time   " << pace_str << " (/km)" << endl;
+    cout << "  pace-time   " << pace_str << " /km" << endl;
 
     return 0;
 }
@@ -133,6 +136,19 @@ void time_to_str(int time, char *str) {
     }
     sprintf(t, "%02ds", s);
     strcat(str, t);
+}
+
+void dtime_to_str(double dtime, char *str) {
+    char t[128], dps[128];
+    char *dpsd;
+    int ip = (int)dtime; /* integer part */
+    double dp = dtime - ip; /* decimal part */
+
+    time_to_str(ip, t);
+    strcpy(str, t);
+    sprintf(dps, "%f", dp);
+    dpsd = &dps[2];
+    strcat(str, dpsd);
 }
 
 int countbits(int bits) {
