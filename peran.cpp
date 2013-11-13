@@ -20,11 +20,9 @@ int main(int argc, char *argv[]) {
     int c, index;
     double dist = 0.0;
     int finish = -1, pace = -1;
+    int mode = MODE_NONE;
 
-    /* mode -- 0:none 1:f->u 2:u->f */
-    int mode = 0;
-
-    while ((c = getopt_long(argc, argv, "hd:f:u:", options, &index)) != -1) {
+    while ((c = getopt_long(argc, argv, "hd:f:p:", options, &index)) != -1) {
         switch (c) {
             case 'h':
                 print_help();
@@ -41,12 +39,12 @@ int main(int argc, char *argv[]) {
 
             case 'f':
                 finish = str_to_time(optarg);
-                mode = 1;
+                mode = mode | MODE_FTOP;
                 break;
 
-            case 'u':
+            case 'p':
                 pace = str_to_time(optarg);
-                mode = 2;
+                mode = mode | MODE_PTOF;
                 break;
 
             default:
@@ -55,9 +53,13 @@ int main(int argc, char *argv[]) {
     }
 
     /* main proc */
-    if (mode == 1) {
+    /* more than 1 mode are on */
+    if (1 < countbits(mode))
+        exit_with_error("Selected more than 1 mode.");
+
+    if (mode == MODE_FTOP) {
         pace = finish / dist;
-    } else if (mode == 2) {
+    } else if (mode == MODE_PTOF) {
         finish = pace * dist;
     }
 
@@ -131,5 +133,18 @@ void time_to_str(int time, char *str) {
     }
     sprintf(t, "%02ds", s);
     strcat(str, t);
+}
+
+int countbits(int bits) {
+    bits = (bits & 0x55555555) + (bits >> 1 & 0x55555555);
+    bits = (bits & 0x33333333) + (bits >> 2 & 0x33333333);
+    bits = (bits & 0x0f0f0f0f) + (bits >> 4 & 0x0f0f0f0f);
+    bits = (bits & 0x00ff00ff) + (bits >> 8 & 0x00ff00ff);
+    return (bits & 0x0000ffff) + (bits >> 16 & 0x0000ffff);
+}
+
+void exit_with_error(string msg) {
+    cerr << "Error: " << msg << endl;
+    exit(1);
 }
 

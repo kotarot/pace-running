@@ -16,7 +16,12 @@ using namespace std;
     int second;
 } s_time;*/
 
-/* description string of mode */
+/** MODE */
+#define MODE_NONE 0x0000
+#define MODE_FTOP 0x0001
+#define MODE_PTOF 0x0002
+
+/** description string of mode */
 static char mode_str[3][25] = {
     "None",
     "Finish-time to Pace-time",
@@ -38,6 +43,19 @@ int str_to_time(char *str);
  * @param time(second), time string
  */
 void time_to_str(int time, char *str);
+
+/**
+ * count number of on-bit
+ * @param integer
+ * @return number of on-bit
+ */
+int countbits(int bits);
+
+/**
+ * Output message on stderr and exit with error code
+ * @param error message
+ */
+void exit_with_error(string msg);
 
 #endif
 
