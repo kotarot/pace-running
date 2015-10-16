@@ -1,1 +1,9 @@
-peran
+# Typical
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Executables
+pacerun
+pacerun.exe
