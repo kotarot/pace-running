@@ -1,7 +1,7 @@
-/** peran.hpp */
+/** pacerun.hpp */
 
-#ifndef __PERAN_HPP__
-#define __PERAN_HPP__
+#ifndef __PACERUN_HPP__
+#define __PACERUN_HPP__
 
 using namespace std;
 
@@ -64,4 +64,3 @@ int countbits(int bits);
 void exit_with_error(string msg);
 
 #endif
-

@@ -1,6 +1,4 @@
-# Makefile of peran
+# Makefile for pace-running
 
-peran: peran.hpp peran.cpp
-	g++ -Wall -O2 -o peran peran.cpp
-
-
+pacerun: pacerun.hpp pacerun.cpp
+	g++ -Wall -O2 -o pacerun pacerun.cpp

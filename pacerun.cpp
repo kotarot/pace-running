@@ -1,4 +1,4 @@
-/** peran.cpp */
+/** pacerun.cpp */
 
 #include <iostream>
 #include <getopt.h>
@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "peran.hpp"
+#include "pacerun.hpp"
 
 static option options[] = {
     {"help", no_argument, NULL, 'h'},
@@ -163,4 +163,3 @@ void exit_with_error(string msg) {
     cerr << "Error: " << msg << endl;
     exit(1);
 }
-
